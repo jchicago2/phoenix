@@ -1,32 +1,35 @@
-import datetime
-import ipywidgets as widgets
-from IPython.display import display
+import tkinter as tk
+import random
 
-# Function to get all dates for a specified year and weekday
-def get_weekdays_for_year(year, weekday):
-    dates = []
-    # Start from the first day of the year
-    d = datetime.datetime(year, 1, 1)
-    # Find the first occurrence of the specified weekday
-    d += datetime.timedelta(days=(weekday - d.weekday() + 7) % 7)
-    while d.year == year:
-        dates.append(d.strftime("%A, %Y-%m-%d"))
-        d += datetime.timedelta(days=7)
-    return dates
+# Initialize the main window
+root = tk.Tk()
+root.title("Guess the Gold Cup")
 
-# Button click handler
-def on_button_click(b):
-    year = 2024
-    all_days_of_week = []
-    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    for i, day in enumerate(weekdays):
-        all_days_of_week.extend(get_weekdays_for_year(year, i))
+# Load images of rabbit and gold cup
+rabbit_img = tk.PhotoImage(file="rabbit.png")
+cup_img = tk.PhotoImage(file="cup.png")
 
-    for day_with_date in sorted(all_days_of_week):
-        print(day_with_date)
-    
-# Create and display the button
-button = widgets.Button(description="Process")
-button.on_click(on_button_click)
-display(button)
-    print(day_with_date)
+# Create a label to display the result
+result_label = tk.Label(root, text="", font=("Helvetica", 16))
+result_label.pack(pady=10)
+
+# Function to handle rabbit click
+def on_rabbit_click(rabbit_number):
+    global result_label
+    if rabbit_number == gold_cup_position:
+        result_label.config(text="Congratulations! You found the gold cup!")
+    else:
+        result_label.config(text="Sorry, no cup behind this rabbit. Try again!")
+
+# Create buttons for the rabbits
+rabbit_buttons = []
+for i in range(4):
+    button = tk.Button(root, image=rabbit_img, command=lambda i=i: on_rabbit_click(i))
+    button.pack(side=tk.LEFT, padx=10)
+    rabbit_buttons.append(button)
+
+# Randomly place the gold cup behind one of the rabbits
+gold_cup_position = random.randint(0, 3)
+
+# Run the main loop
+root.mainloop()
