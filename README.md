@@ -1,5 +1,6 @@
-# Get the current year
-current_year = datetime.datetime.now().year
+import datetime
+import ipywidgets as widgets
+from IPython.display import display
 
 # Function to get all dates for a specified year and weekday
 def get_weekdays_for_year(year, weekday):
@@ -13,14 +14,19 @@ def get_weekdays_for_year(year, weekday):
         d += datetime.timedelta(days=7)
     return dates
 
-# Generate a list of all days of the week for the current year
-all_days_of_week = []
-weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-for i, day in enumerate(weekdays):
-    all_days_of_week.extend(get_weekdays_for_year(current_year, i))
+# Button click handler
+def on_button_click(b):
+    year = 2024
+    all_days_of_week = []
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for i, day in enumerate(weekdays):
+        all_days_of_week.extend(get_weekdays_for_year(year, i))
 
-# Print the list of days with dates
-for day_with_date in sorted(all_days_of_week):
-    print(day_with_date)
-    print(day_with_date)
+    for day_with_date in sorted(all_days_of_week):
+        print(day_with_date)
+    
+# Create and display the button
+button = widgets.Button(description="Process")
+button.on_click(on_button_click)
+display(button)
     print(day_with_date)
