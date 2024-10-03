@@ -24,3 +24,4 @@ for i, day in enumerate(weekdays):
 # Print the list of days with dates
 for day_with_date in sorted(all_days_of_week):
     print(day_with_date)
+    print(day_with_date)
